@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const mustacheExpress = require('mustache-express')
 const pgp = require('pg-promise')();
 const fetch = require('node-fetch');
+const dotEnv = require('dotenv')
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(express.static('public'))
@@ -12,15 +13,15 @@ app.set("views", "./views")
 app.set("view engine", "mustache")
 
 const config = {
-    host: 'ec2-75-101-138-165.compute-1.amazonaws.com',
-    user: 'imwnitnokrnxdd',
-    port: 5432,
-    password: 'd943a741a13beb3caa85430a5b2db7feee6a6dc93b00c7469d05bdfa3ffc4253',
-    database: 'dstj40cctbr7a',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    port: process.env.DB_PORT,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     ssl: true
 }
 
-const connectionString = "postgres://imwnitnokrnxdd:d943a741a13beb3caa85430a5b2db7feee6a6dc93b00c7469d05bdfa3ffc4253@ec2-75-101-138-165.compute-1.amazonaws.com:5432/dstj40cctbr7a"
+const connectionString = process.env.DB_CONN
 const db = pgp(config)
 
 fetch('https://nwis.waterservices.usgs.gov/nwis/iv/?site=08072000&format=json&parameterCd=00065&startDT=2008-10-01T00:00')

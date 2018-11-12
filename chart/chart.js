@@ -60,8 +60,8 @@ function drawChart() {
     canvas.height = baseWidth
 
     // declare graph start and end  
-    let GRAPH_TOP = baseWidth * 0.1;
-    let GRAPH_LEFT = baseWidth * 0.1;  
+    let GRAPH_TOP = baseWidth * 0.1
+    let GRAPH_LEFT = baseWidth * 0.1  
     let GRAPH_RIGHT = baseWidth
     let GRAPH_BOTTOM = baseWidth * 0.9
     let GRAPH_HEIGHT = baseWidth * 0.8
