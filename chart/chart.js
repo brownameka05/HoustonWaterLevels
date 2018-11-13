@@ -30,6 +30,9 @@ function drawChart() {
     if(window.innerWidth >= 1040){
         multiplier = 0.5
         switch(range){
+            case 96:
+                water.style.width = '49.5vw'
+                break
             case 7:
                 water.style.width = '42.9vw'
                 break
@@ -43,6 +46,9 @@ function drawChart() {
     }
     else{
         switch(range){
+            case 96:
+                water.style.width = '59.5vw'
+                break
             case 7:
                 water.style.width = '51.5vw'
                 break

@@ -51,11 +51,11 @@ body {
 }
 
 #y-label{
-    transform: rotate(-90deg) translate(-20vw,-5vw);
+    transform: rotate(-90deg) translate(-20vw,-20vw);
 }
 
 #x-label{
-    transform: translate(23vw,-3vw);
+    transform: translate(30vw,-1vw);
 }
 
 @keyframes waterY {
@@ -70,6 +70,12 @@ body {
     /* 75% {filter: hue-rotate(-20deg)} */
 }
 
+@media screen and (min-width: 768px){
+    #y-label{
+        transform: rotate(-90deg) translate(-20vw,-10vw);
+    }
+}
+
 @media screen and (min-width: 1040px){
     #CHART{
         width: 50vw;
@@ -80,5 +86,8 @@ body {
         width: 42.9vw;
         margin-left: 5vw;
         margin-top: 5vw;
+    }
+    #x-label{
+        transform: translate(25vw,-1vw);
     }
 }
