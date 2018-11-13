@@ -45,7 +45,7 @@ let lakeHouston = []
 let lakeBuffalo = []
 
 const https = require("https");
-const url = "https://waterservices.usgs.gov/nwis/iv/?site=08072300,08072000&format=json&parameterCd=00065&period=PT24H";
+const url = "https://waterservices.usgs.gov/nwis/iv/?site=08072300,08072000&format=json&parameterCd=00065&period=PT26H";
 https.get(url, res => {
   res.setEncoding("utf8");
   let body = "";
