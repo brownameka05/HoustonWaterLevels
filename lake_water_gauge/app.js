@@ -27,8 +27,12 @@ app.get('/',function(req,res){
   res.render('index')
 })
 //------------------------------------------
+
+let lakeHouston = []
+let lakeBuffalo = []
+
 const https = require("https");
-const url = "https://waterservices.usgs.gov/nwis/iv/?site=08072300&format=json&parameterCd=00065&period=P7D";
+const url = "https://waterservices.usgs.gov/nwis/iv/?site=08072300,08072000&format=json&parameterCd=00065&period=P1D";
 https.get(url, res => {
   res.setEncoding("utf8");
   let body = "";
@@ -38,11 +42,18 @@ https.get(url, res => {
   res.on("end", () => {
     body = JSON.parse(body);
     let dataObject = body.value.timeSeries[0].values[0].value
+    let siteName = "Houston Lake"
+    let siteId = 0807200
     dataObject.forEach(function(each){
       let height = each.value
       let dateTime = each.dateTime
+      let dataOfHoustonLake = {height:height, dateTime:dateTime}
+      lakeHouston.push(dataOfHoustonLake)
 
-      db.none('INSERT INTO waterheight(height,datetime) VALUES($1,$2)',[height,dateTime])
+  })
+      let recentDataOfHouston = lakeHouston.slice((lakeHouston.length-10), lakeHouston.length)
+      console.log(recentDataOfHouston)
+      db.none('INSERT INTO waterheight(height,date,sitename,siteid) VALUES($1,$2,$3,$4)',[height,dateTime,siteName,siteId])
       .then(function(){
 
       })
@@ -50,6 +61,6 @@ https.get(url, res => {
         console.log(error)
       })
 
-    })
+
   })
 })
