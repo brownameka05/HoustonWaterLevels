@@ -1,0 +1,93 @@
+html {
+    line-height: 1;
+}
+
+body {
+    margin: 0;
+}
+
+#page-wrap{
+    background: rgb(9,9,175);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#CHART{
+    width: 60vw;
+    height: 60vw;
+    display: flex;
+}
+
+#water{
+    position: absolute;
+    height: 48vw;
+    width: 51.5vw;
+    background-color: yellow;
+    margin-left: 6vw;
+    margin-top: 6vw;
+    animation: waterY 20s infinite, waterX 5s infinite;
+    animation-timing-function: linear;
+    background-color:rgb(9,9,175);
+    background-image:
+    radial-gradient(circle at 100% 150%, rgb(9, 9, 175) 24%, rgb(0,0,100) 25%, rgb(0,0,100) 28%, rgb(9,9,175) 29%, rgb(9,9,175) 36%, rgb(0,0,100) 36%, rgb(0,0,100) 40%, transparent 40%, transparent),
+    radial-gradient(circle at 0    150%, rgb(9,9,175) 24%, rgb(0,0,100) 25%, rgb(0,0,100) 28%, rgb(9,9,175) 29%, rgb(9,9,175) 36%, rgb(0,0,100) 36%, rgb(0,0,100) 40%, transparent 40%, transparent),
+    radial-gradient(circle at 50%  100%, rgb(0,0,100) 10%, rgb(9,9,175) 11%, rgb(9,9,175) 23%, rgb(0,0,100) 24%, rgb(0,0,100) 30%, rgb(9,9,175) 31%, rgb(9,9,175) 43%, rgb(0,0,100) 44%, rgb(0,0,100) 50%, rgb(9,9,175) 51%, rgb(9,9,175) 63%, rgb(0,0,100) 64%, rgb(0,0,100) 71%, transparent 71%, transparent),
+    radial-gradient(circle at 100% 50%, rgb(0,0,100) 5%, rgb(9,9,175) 6%, rgb(9,9,175) 15%, rgb(0,0,100) 16%, rgb(0,0,100) 20%, rgb(9,9,175) 21%, rgb(9,9,175) 30%, rgb(0,0,100) 31%, rgb(0,0,100) 35%, rgb(9,9,175) 36%, rgb(9,9,175) 45%, rgb(0,0,100) 46%, rgb(0,0,100) 49%, transparent 50%, transparent),
+    radial-gradient(circle at 0    50%, rgb(0,0,100) 5%, rgb(9,9,175) 6%, rgb(9,9,175) 15%, rgb(0,0,100) 16%, rgb(0,0,100) 20%, rgb(9,9,175) 21%, rgb(9,9,175) 30%, rgb(0,0,100) 31%, rgb(0,0,100) 35%, rgb(9,9,175) 36%, rgb(9,9,175) 45%, rgb(0,0,100) 46%, rgb(0,0,100) 49%, transparent 50%, transparent);
+    background-size: 6vw 3vw;
+    opacity: 0.5;
+}
+
+#canvas{
+    position: absolute;
+}
+
+.chart-label{
+    position: absolute;
+    color: white;
+}
+
+#y-label{
+    transform: rotate(-90deg) translate(-20vw,-20vw);
+}
+
+#x-label{
+    transform: translate(30vw,-1vw);
+}
+
+@keyframes waterY {
+    /* 25% {background)} */
+    50% {background-position-x: 30%}
+    /* 75% {filter: hue-rotate(-20deg)} */
+}
+
+@keyframes waterX {
+    /* 25% {background)} */
+    50% {background-position-y: 3%}
+    /* 75% {filter: hue-rotate(-20deg)} */
+}
+
+@media screen and (min-width: 768px){
+    #y-label{
+        transform: rotate(-90deg) translate(-20vw,-10vw);
+    }
+}
+
+@media screen and (min-width: 1040px){
+    #CHART{
+        width: 50vw;
+        height: 50vw;
+    }
+    #water{
+        height: 40vw;
+        width: 42.9vw;
+        margin-left: 5vw;
+        margin-top: 5vw;
+    }
+    #x-label{
+        transform: translate(25vw,-1vw);
+    }
+}
