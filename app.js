@@ -45,55 +45,60 @@ app.get('/',function(req,res){
 let lakeHouston = []
 let lakeBuffalo = []
 
+
 const https = require("https");
 const url = "https://waterservices.usgs.gov/nwis/iv/?site=08072300,08072000&format=json&parameterCd=00065&period=PT26H";
-https.get(url, res => {
-  res.setEncoding("utf8");
-  let body = "";
-  res.on("data", data => {
-    body += data;
-  });
-  var count = 31
-  res.on("end", () => {
-    body = JSON.parse(body);
-    let dataObject = body.value.timeSeries[0].values[0].value
-    let siteName = "Houston Lake"
-    let siteId = 0807200
-    lakeHouston = []
-    dataObject.forEach(function(each){
-      let height = each.value
-      let dateTime = each.dateTime
-      let dataOfHoustonLake = {height:height, dateTime:dateTime}
-      console.log(dataOfHoustonLake)
-      lakeHouston.push(dataOfHoustonLake)
+
+app.get('/recentData', (req,res)=>{
+  https.get(url, res => {
+    res.setEncoding("utf8");
+    let body = "";
+    res.on("data", data => {
+      body += data;
+    });
+    var count = 31
+    res.on("end", () => {
+      body = JSON.parse(body);
+      let dataObject = body.value.timeSeries[0].values[0].value
+      let siteName = "Houston Lake"
+      let siteId = 0807200
+      lakeHouston = []
+      dataObject.forEach(function(each){
+        let height = each.value
+        let dateTime = each.dateTime
+        let dataOfHoustonLake = {height:height, dateTime:dateTime}
+        lakeHouston.push(dataOfHoustonLake)
+
+      })
+
+        let recentDataOfHouston = lakeHouston.slice((lakeHouston.length-95), lakeHouston.length)
+        console.log(recentDataOfHouston.length)
+
+        // recentDataOfHouston.forEach(function(each){
+        //   count++
+        //   let waterHeight = each.height
+        //   let recordedDate = each.dateTime
+
+
+          // db.none('UPDATE waterheight SET (height,date,sitename,siteid) = ($1,$2,$3,$4) WHERE id=$5',[waterHeight,recordedDate,siteName,siteId,count]).then(function(){
+
+          // })
+          // .catch(function(error){
+          //   console.log(error)
+          // })
+         // db.none('INSERT INTO waterheight(height,date,sitename,siteid) //VALUES($1,$2,$3,$4)',[waterHeight,recordedDate,siteName,siteId])
+        // .then(function(){
+        //
+        // })
+        // .catch(function(error){
+        //   console.log(error)
+        // })
+      // })
 
     })
-
-      let recentDataOfHouston = lakeHouston.slice((lakeHouston.length-10), lakeHouston.length)
-      console.log(recentDataOfHouston)
-
-      recentDataOfHouston.forEach(function(each){
-        count++
-        let waterHeight = each.height
-        let recordedDate = each.dateTime
-
-
-db.none('UPDATE waterheight SET (height,date,sitename,siteid) = ($1,$2,$3,$4) WHERE id=$5',[waterHeight,recordedDate,siteName,siteId,count]).then(function(){
-
-})
-.catch(function(error){
-  console.log(error)
-})
-       // db.none('INSERT INTO waterheight(height,date,sitename,siteid) //VALUES($1,$2,$3,$4)',[waterHeight,recordedDate,siteName,siteId])
-      // .then(function(){
-      //
-      // })
-      // .catch(function(error){
-      //   console.log(error)
-      // })
-    })
-
   })
+
+
 })
 
 */
