@@ -1,15 +1,3 @@
-// const express = require('express')
-// const app = express()
-// const bodyParser = require('body-parser')
-// const mustacheExpress = require('mustache-express')
-//
-//
-// app.use(bodyParser.urlencoded({extended:false}))
-// app.use(express.static('public'))
-// app.engine('mustache', mustacheExpress())
-// app.set("views", "./views")
-// app.set("view engine", "mustache")
-// ========================================
 
 const express = require('express')
 const mustacheExpress = require('mustache-express')
@@ -43,54 +31,61 @@ app.get('/',function(req,res){
 
 let lakeHouston = []
 let lakeBuffalo = []
+let recentDataOfHoustonLake = []  // DATA OF LAST 10 DAYS
+let recentDataOfBuffaloLake = []
+// https://waterservices.usgs.gov/nwis/iv/?site=08072300,08072000&format=json&parameterCd=00065&period=PT240H
 
 const https = require("https");
-const url = "https://waterservices.usgs.gov/nwis/iv/?site=08072300,08072000&format=json&parameterCd=00065&period=PT26H";
+const url = "https://waterservices.usgs.gov/nwis/iv/?site=08072000&format=json&parameterCd=00065&startDT=2018-11-13&endDT=2018-11-14";
+
 https.get(url, res => {
   res.setEncoding("utf8");
   let body = "";
   res.on("data", data => {
     body += data;
   });
-  var count = 31
+  var count = 71
   res.on("end", () => {
     body = JSON.parse(body);
     let dataObject = body.value.timeSeries[0].values[0].value
     let siteName = "Houston Lake"
-    let siteId = 0807200
-    lakeHouston = []
+    let siteId = 08072000
+    // lakeHouston = []
     dataObject.forEach(function(each){
       let height = each.value
       let dateTime = each.dateTime
       let dataOfHoustonLake = {height:height, dateTime:dateTime}
-      console.log(dataOfHoustonLake)
+      // console.log(dataOfHoustonLake)
       lakeHouston.push(dataOfHoustonLake)
 
     })
+        // console.log(lakeHouston)
+      let dataOfDay1 = lakeHouston.slice(49,50)
+      // console.log(dataOfDay1)
+      let dataOfDay2 = lakeHouston.slice(109,110)
 
-      let recentDataOfHouston = lakeHouston.slice((lakeHouston.length-10), lakeHouston.length)
-      console.log(recentDataOfHouston)
+      recentDataOfHoustonLake.push(dataOfDay2)
+      // console.log(recentDataOfHoustonLake)
+      recentDataOfHoustonLake.push(dataOfDay1)
 
-      recentDataOfHouston.forEach(function(each){
+      // console.log(recentDataOfHoustonLake)
+
+      // let recentDataOfHouston = lakeHouston.slice((lakeHouston.length-10), lakeHouston.length)
+      // console.log(recentDataOfHouston)
+
+      recentDataOfHoustonLake.forEach(function(each){
         count++
-        let waterHeight = each.height
-        let recordedDate = each.dateTime
+        let waterHeight = each[0].height
+        console.log(waterHeight)
+
+        let recordedDate = each[0].dateTime
+        console.log(recordedDate)
 
 
-db.none('UPDATE waterheight SET (height,date,sitename,siteid) = ($1,$2,$3,$4) WHERE id=$5',[waterHeight,recordedDate,siteName,siteId,count]).then(function(){
-
-})
-.catch(function(error){
-  console.log(error)
-})
-       // db.none('INSERT INTO waterheight(height,date,sitename,siteid) //VALUES($1,$2,$3,$4)',[waterHeight,recordedDate,siteName,siteId])
-      // .then(function(){
-      //
-      // })
-      // .catch(function(error){
-      //   console.log(error)
-      // })
-    })
 
   })
-})
+
+    // =========================================================
+
+  })   // end of line 58
+// })     // https === end of line 51
