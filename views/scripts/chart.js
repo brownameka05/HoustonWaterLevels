@@ -9,7 +9,8 @@ ctx.font = "16px Arial";
 const water = document.getElementById('water')
 const radios = Array.from(document.querySelectorAll('.range-radio'))
 
-let dailyData96
+let dailyData96Houston
+let dailyData96Buffalo
 let chartReady = false
 fetch('/recentData',{
     headers: {
@@ -18,7 +19,8 @@ fetch('/recentData',{
 })
  .then(response => response.json())
  .then(data => {
-     dailyData96 = data
+     dailyData96Houston = data.houston
+     dailyData96Buffalo = data.buffalo
      chartReady = true
      drawChart()
  })
@@ -37,8 +39,8 @@ function drawChart() {
     let dataMin
     let dataMax
     if(waterBody == 'Lake Houston'){
-        dataMin = 40
-        dataMax = 55
+        dataMin = 80
+        dataMax = 130
     }
     let dataRange = dataMax - dataMin
 
@@ -60,7 +62,7 @@ function drawChart() {
     const multiplier = deskBool ? 0.5 : 0.6
     switch(range){
         case 96:
-            dataArr = dailyData96.map(obj => parseFloat(obj.height))
+            dataArr = dailyData96Buffalo.map(obj => parseFloat(obj.height))
             water.style.width =  deskBool ? '49.5vw' : '59.5vw'
             break
         case 7:
