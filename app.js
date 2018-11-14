@@ -11,6 +11,7 @@
 // app.set("view engine", "mustache")
 // ========================================
 
+const updateDaily = require('./dailyimports')
 const express = require('express')
 const mustacheExpress = require('mustache-express')
 const bodyParser = require('body-parser')
@@ -20,7 +21,7 @@ app.use(express.static('views'))
 // import the pg-promise library which is used to connect and execute SQL on a postgres database
 const pgp = require('pg-promise')()
 // connection string which is used to specify the location of the database
-const connectionString = "postgres://localhost:5432/houstonlakes"
+const connectionString = "postgres://localhost:5432/hw"
 // creating a new database object which will allow us to interact with the database
 const db = pgp(connectionString)
 
@@ -101,3 +102,11 @@ app.get('/recentData', (req,response)=>{
 
 
 })
+
+
+
+updateDaily(db);
+
+
+
+
