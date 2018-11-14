@@ -15,9 +15,7 @@ const express = require('express')
 const mustacheExpress = require('mustache-express')
 const bodyParser = require('body-parser')
 const app = express()
-app.use(express.static('css'))
-app.use(express.static('js'))
-
+app.use(express.static('views'))
 
 // import the pg-promise library which is used to connect and execute SQL on a postgres database
 const pgp = require('pg-promise')()
@@ -48,7 +46,9 @@ let lakeBuffalo = []
 const https = require("https");
 const url = "https://waterservices.usgs.gov/nwis/iv/?site=08072300,08072000&format=json&parameterCd=00065&period=PT26H";
 
-app.get('/recentData', (req,res)=>{
+app.get('/',(req,res) => res.render('index'))
+
+app.get('/recentData', (req,response)=>{
   https.get(url, res => {
     res.setEncoding("utf8");
     let body = "";
@@ -70,9 +70,11 @@ app.get('/recentData', (req,res)=>{
 
       })
 
-        let recentDataOfHouston = lakeHouston.slice((lakeHouston.length-95), lakeHouston.length)
-        console.log(recentDataOfHouston.length)
+        let recentDataOfLakeHouston = lakeHouston.slice((lakeHouston.length-96), lakeHouston.length)
+        console.log(recentDataOfLakeHouston)
 
+        response.send(JSON.stringify(recentDataOfLakeHouston))
+        
         // recentDataOfHouston.forEach(function(each){
         //   count++
         //   let waterHeight = each.height

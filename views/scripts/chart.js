@@ -9,6 +9,15 @@ ctx.font = "16px Arial";
 const water = document.getElementById('water')
 const radios = Array.from(document.querySelectorAll('.range-radio'))
 
+fetch('/recentData',{
+    headers: {
+        'Accept': 'application/json'
+    }
+})
+ .then(response => response.json())
+ .then(data => console.log(data))
+
+
 function drawChart() {
 
     let range
