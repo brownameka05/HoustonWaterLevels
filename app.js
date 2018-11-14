@@ -41,7 +41,7 @@ app.get('/',function(req,res){
   res.render('index')
 })
 //------------------------------------------
-/*
+
 let lakeHouston = []
 let lakeBuffalo = []
 
@@ -101,9 +101,9 @@ app.get('/recentData', (req,res)=>{
 
 })
 
-*/
 
-  updateDaily(db);
+
+updateDaily(db);
 
 
 
