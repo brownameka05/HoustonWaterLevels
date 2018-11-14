@@ -21,7 +21,7 @@ app.use(express.static('views'))
 // import the pg-promise library which is used to connect and execute SQL on a postgres database
 const pgp = require('pg-promise')()
 // connection string which is used to specify the location of the database
-const connectionString = "postgres://localhost:5432/hw"
+const connectionString = "postgres://postgres:@localhost:5432/houstonlakes"
 // creating a new database object which will allow us to interact with the database
 const db = pgp(connectionString)
 
@@ -43,11 +43,8 @@ app.get('/',function(req,res){
 let lakeHouston = []
 let lakeBuffalo = []
 
-
 const https = require("https");
 const url = "https://waterservices.usgs.gov/nwis/iv/?site=08072300,08072000&format=json&parameterCd=00065&period=PT26H";
-
-app.get('/',(req,res) => res.render('index'))
 
 app.get('/recentData', (req,response)=>{
   https.get(url, res => {
@@ -72,7 +69,7 @@ app.get('/recentData', (req,response)=>{
       })
 
         let recentDataOfLakeHouston = lakeHouston.slice((lakeHouston.length-96), lakeHouston.length)
-        console.log(recentDataOfLakeHouston)
+        // console.log(recentDataOfLakeHouston)
 
         response.send(JSON.stringify(recentDataOfLakeHouston))
         
