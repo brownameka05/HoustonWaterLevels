@@ -44,7 +44,7 @@ let lakeHouston = []
 let lakeBuffalo = []
 
 const https = require("https");
-const url = "https://waterservices.usgs.gov/nwis/iv/?site=08072300,08072000&format=json&parameterCd=00065&period=PT26H";
+const url = "https://waterservices.usgs.gov/nwis/iv/?site=08072300,08072000&format=json&parameterCd=00065&period=PT30H";
 
 app.get('/recentData', (req,response)=>{
   https.get(url, res => {
@@ -56,22 +56,27 @@ app.get('/recentData', (req,response)=>{
     var count = 31
     res.on("end", () => {
       body = JSON.parse(body);
-      let dataObject = body.value.timeSeries[0].values[0].value
-      let siteName = "Houston Lake"
-      let siteId = 0807200
-      lakeHouston = []
-      dataObject.forEach(function(each){
-        let height = each.value
-        let dateTime = each.dateTime
-        let dataOfHoustonLake = {height:height, dateTime:dateTime}
+      const dataObjectHouston = body.value.timeSeries[0].values[0].value
+      const dataObjectBuffalo = body.value.timeSeries[1].values[0].value
+      let lakeHouston = []
+      let buffaloBayou = []
+      dataObjectHouston.forEach(function(each){
+        const height = each.value
+        const dateTime = each.dateTime
+        const dataOfHoustonLake = {height:height, dateTime:dateTime}
         lakeHouston.push(dataOfHoustonLake)
-
+      })
+      dataObjectBuffalo.forEach(function(each){
+        const height = each.value
+        const dateTime = each.dateTime
+        const dataOfBuffaloBayou = {height:height, dateTime:dateTime}
+        buffaloBayou.push(dataOfBuffaloBayou)
       })
 
-        let recentDataOfLakeHouston = lakeHouston.slice((lakeHouston.length-96), lakeHouston.length)
-        // console.log(recentDataOfLakeHouston)
+        const recentDataOfLakeHouston = lakeHouston.slice(lakeHouston.length >= 96 ? (lakeHouston.length-96) : 0, lakeHouston.length)
+        const recentDataOfBuffaloBayou = buffaloBayou.slice(buffaloBayou.length >= 96 ? (buffaloBayou.length-96) : 0, buffaloBayou.length)
 
-        response.send(JSON.stringify(recentDataOfLakeHouston))
+        response.send(JSON.stringify({houston:recentDataOfLakeHouston,buffalo:recentDataOfBuffaloBayou}))
         
         // recentDataOfHouston.forEach(function(each){
         //   count++
