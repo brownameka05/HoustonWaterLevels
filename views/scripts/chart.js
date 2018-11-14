@@ -1,6 +1,6 @@
-const dataMin = 80 // can change to different value for reference
-const dataMax = 130 // also can be changed to higher
-const dataRange = dataMax - dataMin
+let dataMin = 80 // can change to different value for reference
+let dataMax = 130 // also can be changed to higher
+let dataRange = dataMax - dataMin
 
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext( "2d" )
@@ -9,7 +9,38 @@ ctx.font = "16px Arial";
 const water = document.getElementById('water')
 const radios = Array.from(document.querySelectorAll('.range-radio'))
 
+let dailyData96
+let chartReady = false
+fetch('/recentData',{
+    headers: {
+        'Accept': 'application/json'
+    }
+})
+ .then(response => response.json())
+ .then(data => {
+     dailyData96 = data
+     chartReady = true
+     drawChart()
+ })
+
+const waterBodyTitle = document.getElementById('water-body')
+let waterBody = 'Lake Houston'
+
 function drawChart() {
+
+    if(!chartReady){
+        return
+    }
+
+    waterBodyTitle.innerHTML = waterBody
+
+    let dataMin
+    let dataMax
+    if(waterBody == 'Lake Houston'){
+        dataMin = 40
+        dataMax = 55
+    }
+    let dataRange = dataMax - dataMin
 
     let range
     radios.forEach(radio => {
@@ -24,43 +55,25 @@ function drawChart() {
     {
         dataArr.push(Math.random() * 40 + 85)
     }
+
+    const deskBool = window.innerWidth >= 1040
+    const multiplier = deskBool ? 0.5 : 0.6
+    switch(range){
+        case 96:
+            dataArr = dailyData96.map(obj => parseFloat(obj.height))
+            water.style.width =  deskBool ? '49.5vw' : '59.5vw'
+            break
+        case 7:
+            water.style.width = deskBool ? '42.9vw' : '51.5vw'
+            break
+        case 31:
+            water.style.width = deskBool ? '48.5vw' : '58.5vw'
+            break
+        case 365:
+            water.style.width = deskBool ? '50vw' : '60vw'
+            break
+    }
     console.log(dataArr)
-
-    let multiplier = 0.6
-    if(window.innerWidth >= 1040){
-        multiplier = 0.5
-        switch(range){
-            case 96:
-                water.style.width = '49.5vw'
-                break
-            case 7:
-                water.style.width = '42.9vw'
-                break
-            case 31:
-                water.style.width = '48.5vw'
-                break
-            case 365:
-                water.style.width = '50vw'
-                break
-        }
-    }
-    else{
-        switch(range){
-            case 96:
-                water.style.width = '59.5vw'
-                break
-            case 7:
-                water.style.width = '51.5vw'
-                break
-            case 31:
-                water.style.width = '58.5vw'
-                break
-            case 365:
-                water.style.width = '60vw'
-                break
-        }
-    }
-
     const baseWidth = window.innerWidth * multiplier
     canvas.width = baseWidth * 1.1
     canvas.height = baseWidth
@@ -100,13 +113,14 @@ function drawChart() {
     let finalValY
     let finalValX
     let prevX = GRAPH_LEFT + 2
-    for(let i = 0; i < dataArr.length; i++ ){
+    for(let i = 0; i < dataArr.length; i++ )
+    {
         // const x = GRAPH_RIGHT / (dataArr.length) * i + GRAPH_LEFT + 2
         const x = i == 0 ? prevX : prevX + (GRAPH_RIGHT / (dataArr.length))
         const y = ( GRAPH_HEIGHT - (dataArr[ i ] - dataMin) / dataRange * GRAPH_HEIGHT ) + GRAPH_TOP
         // ctx.fillRect(x - 4,y - 4,8,8)
         ctx.lineTo( x, y )
-        ctx.fillText( i, x - 3, GRAPH_BOTTOM + baseWidth * 0.05)
+        // ctx.fillText( i, x - 3, GRAPH_BOTTOM + baseWidth * 0.05)
         // ctx.fillText( i, GRAPH_RIGHT / dataArr.length * i, GRAPH_BOTTOM + 25)
         prevX = x
         finalValX = x

@@ -58,6 +58,14 @@ body {
     transform: translate(30vw,-1vw);
 }
 
+#red-green{
+    height: calc(50vw - 100px);
+    margin-top: 50px;
+    width: 5vw;
+    background-image: linear-gradient(to bottom, red,rgb(0, 255, 0));
+    /* position: absolute; */
+}
+
 @keyframes waterY {
     /* 25% {background)} */
     50% {background-position-x: 30%}

@@ -5,11 +5,10 @@
         <title>Chart</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="chart.css">
+        <link rel="stylesheet" href="styles/chart.css">
     </head>
     <body>
         <div id="page-wrap">
-            <div id="Loading">Loading...</div>
             <form id="range-selector">
                 <input class='range-radio' id="range96" type="radio" value="96" name="range" checked>
                 <label for="range96">Past 24 Hours</label>
@@ -20,15 +19,18 @@
                 <input class='range-radio' id="range365" type="radio" value="365" name="range">
                 <label for="range365">Year</label>
             </form>
+            <h2 id="water-body">Lake Houston</h2>
             <div id="chart-wrapper">
+                <div id="Loading">Loading...</div>
                 <h2 id="y-label" class="chart-label">Gauge Height (ft)</h2>
                 <div id="CHART">
                     <div id="water"></div>
                     <canvas id="canvas"></canvas>
+                    <div id="red-green"></div>
                 </div>
                 <h2 id="x-label" class="chart-label">Time</h2>
             </div>
         </div>
-        <script src="chart.js"></script>
+        <script src="scripts/chart.js"></script>
     </body>
 </html>
