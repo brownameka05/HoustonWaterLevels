@@ -42,7 +42,7 @@ app.engine('mustache',mustacheExpress())
 app.set('views','./views')
 app.set('view engine','mustache')
 
-app.listen(3002,function(req,res){
+app.listen(process.env.PORT || 3002,function(req,res){
   console.log("Server has started...")
 })
 app.get('/',function(req,res){
