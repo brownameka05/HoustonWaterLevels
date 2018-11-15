@@ -63,7 +63,7 @@ function oneDayData(siteUrls, db) {
 
                 // let waterHeight = each[0].height
                 // let recordedDate = each[0].dateTime.replace('T',' ')
-
+                
                 let previousDate = ''
                 let promises = []
                 valueArray.forEach((valueObject,index) => {
