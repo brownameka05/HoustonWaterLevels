@@ -8,7 +8,6 @@
     position: absolute;
     height: 48vw;
     width: 51.5vw;
-    background-color: yellow;
     margin-left: 6vw;
     margin-top: 6vw;
     animation: waterY 20s infinite, waterX 5s infinite;
