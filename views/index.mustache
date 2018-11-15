@@ -17,10 +17,10 @@
       <div class="w3-bar">
         <a href="#" class="w3-bar-item w3-button">HOME</a>
         <a href="#range-selector" class="w3-bar-item w3-button">FLOOD GUAGE</a>
-        <a href="#" class="w3-bar-item w3-button">HOUSTON MAP</a>
-        <a href="#" class="w3-bar-item w3-button">FLOOD WARNINGS</a>
-        <a href="#" class="w3-bar-item w3-button">RESCUE HELP</a>
-        <a href="#" class="w3-bar-item w3-button">SAFETY TIPS</a>
+        <a target='_blank' href="https://www.accuweather.com/en/us/houston-tx/weather-radar" class="w3-bar-item w3-button">HOUSTON MAP</a>
+        <a target='_blank' href="https://abc13.com/weather/alerts/" class="w3-bar-item w3-button">FLOOD WARNINGS</a>
+        <a target='_blank' href="https://abc13.com/weather/how-to-get-help-phone-numbers-and-critical-info/2347003/" class="w3-bar-item w3-button">RESCUE HELP</a>
+        <a target='_blank' href="https://www.dps.texas.gov/dem/Preparedness/tips/flashFloodSafetyTips.htm" class="w3-bar-item w3-button">SAFETY TIPS</a>
       </div>
 
 
@@ -72,11 +72,32 @@
                     <canvas id="canvas"></canvas>
                     <div id="red-green"></div>
                 </div>
-                <h2 id="x-label" class="chart-label">Time</h2>
+                <div id="x-label" class="chart-label">
+                    <div id="x-1" class="x-marker">
+                        <div class="x-marker-line-1"></div>
+                        <div class="x-marker-line-2"></div>
+                    </div>
+                    <div id="x-2" class="x-marker">
+                        <div class="x-marker-line-1"></div>
+                        <div class="x-marker-line-2"></div>
+                    </div>
+                    <div id="x-3" class="x-marker">
+                        <div class="x-marker-line-1"></div>
+                        <div class="x-marker-line-2"></div>
+                    </div>
+                    <div id="x-4" class="x-marker">
+                        <div class="x-marker-line-1"></div>
+                        <div class="x-marker-line-2"></div>
+                    </div>
+                    <div id="x-5" class="x-marker">
+                        <div class="x-marker-line-1"></div>
+                        <div class="x-marker-line-2"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footer">
-  <p>Footer</p>
+  <p>© 2018</p>
 </div>
         <script src="scripts/chart.js"></script>
     </body>

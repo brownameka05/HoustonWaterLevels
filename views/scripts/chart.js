@@ -41,11 +41,16 @@ function changeWater(){
     })
 }
 
+const miliSecRegex = new RegExp(/:[\d][\d] /)
+
 function drawChart() {
 
     if(!chartReady){
         return
     }
+
+    const xLabel = document.getElementById('x-label')
+    const xMarkers = Array.from(document.querySelectorAll('.x-marker'))
 
     loading.innerHTML = ''
     water.style.display = 'unset'
@@ -78,6 +83,8 @@ function drawChart() {
         dataArr.push(Math.random() * 40 + 85)
     }
 
+    const today = new Date()
+
     const deskBool = window.innerWidth >= 1040
     const multiplier = deskBool ? 0.5 : 0.6
     switch(range){
@@ -89,6 +96,11 @@ function drawChart() {
                       dailyData96Buffalo
                       ).map(obj => parseFloat(obj.height))
             water.style.width =  deskBool ? '49.5vw' : '59.5vw'
+            xMarkers.forEach((marker,index) => {
+                const markerDate = new Date(today - (21600000 * (xMarkers.length - 1 - index)))
+                marker.children[0].innerHTML = markerDate.toDateString().slice(0,10)
+                marker.children[1].innerHTML = markerDate.toLocaleTimeString().replace(miliSecRegex,'')
+            })
             break
         case 7:
             water.style.width = deskBool ? '42.9vw' : '51.5vw'

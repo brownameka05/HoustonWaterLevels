@@ -4,5 +4,10 @@
 }
 
 .footer{
-  display: flex
+  display: flex;
+  background-color: lightgrey;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  height: 100px;
 }
