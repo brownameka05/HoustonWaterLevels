@@ -21,7 +21,7 @@ app.use(express.static('views'))
 // import the pg-promise library which is used to connect and execute SQL on a postgres database
 const pgp = require('pg-promise')()
 // connection string which is used to specify the location of the database
-const connectionString = "postgres://postgres:@localhost:5432/hw"
+const connectionString = process.env.DB_CONN
 // creating a new database object which will allow us to interact with the database
 const db = pgp(connectionString)
 
