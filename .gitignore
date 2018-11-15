@@ -32,3 +32,6 @@ coverage
 benchmarks/graphs
 
 .env
+
+InitalData/
+lake_water_guage/
