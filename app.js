@@ -53,7 +53,7 @@ app.get('/recentData', (req,response)=>{
     res.on("data", data => {
       body += data;
     });
-    var count = 31
+    // var count = 31
     res.on("end", () => {
       body = JSON.parse(body);
       const dataObjectHouston = body.value.timeSeries[0].values[0].value
@@ -104,7 +104,6 @@ app.get('/recentData', (req,response)=>{
 
 
 })
-
 
 
 updateDaily(db);
