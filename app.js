@@ -78,27 +78,6 @@ app.get('/recentData', (req,response)=>{
 
         response.send(JSON.stringify({houston:recentDataOfLakeHouston,buffalo:recentDataOfBuffaloBayou}))
 
-        // recentDataOfHouston.forEach(function(each){
-        //   count++
-        //   let waterHeight = each.height
-        //   let recordedDate = each.dateTime
-
-
-          // db.none('UPDATE waterheight SET (height,date,sitename,siteid) = ($1,$2,$3,$4) WHERE id=$5',[waterHeight,recordedDate,siteName,siteId,count]).then(function(){
-
-          // })
-          // .catch(function(error){
-          //   console.log(error)
-          // })
-         // db.none('INSERT INTO waterheight(height,date,sitename,siteid) //VALUES($1,$2,$3,$4)',[waterHeight,recordedDate,siteName,siteId])
-        // .then(function(){
-        //
-        // })
-        // .catch(function(error){
-        //   console.log(error)
-        // })
-      // })
-
     })
   })
 
