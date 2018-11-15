@@ -1,0 +1,13 @@
+.w3-bar{
+  text-align: center;
+
+}
+
+.footer{
+  display: flex;
+  background-color: lightgrey;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  height: 100px;
+}

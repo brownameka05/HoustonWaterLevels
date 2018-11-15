@@ -57,11 +57,21 @@ body {
 }
 
 #x-label{
-    transform: translate(30vw,-1vw);
+    transform: translate(40px,-3vw);
+    display: flex;
+    width: 63vw;
+    justify-content: space-between;
+    font-size: 10px;
+}
+
+.x-marker{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #red-green{
-    height: calc(50vw - 100px);
+    height: calc(60vw - 100px);
     margin-top: 50px;
     width: 5vw;
     background-image: linear-gradient(to bottom, red,rgb(0, 255, 0),yellow);
@@ -77,6 +87,8 @@ body {
     align-items: center;
     margin-left: 50px;
 }
+
+
 
 @keyframes waterY {
     /* 25% {background)} */
@@ -108,10 +120,14 @@ body {
         margin-top: 5vw;
     }
     #x-label{
-        transform: translate(25vw,-1vw);
+        transform: translate(55px,-3vw);
+        width: 50vw;
     }
     #Loading{
         width: 50vw;
         height: 50vw;
+    }
+    #red-green{
+        height: calc(50vw - 100px);
     }
 }
