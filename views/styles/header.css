@@ -1,6 +1,39 @@
 .w3-bar{
   text-align: center;
+  background-color: rgba(230,230,230,0.5);
+  position: fixed;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+  z-index: 2;
+}
 
+.w3-button{
+  background: none;
+}
+
+#teaser-p{
+  text-indent: 50px;
+  background-color: rgba(255,255,255,0.5);
+}
+
+#header-bckg{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/Houston%2C_Texas_at_Night_2010-02-28_lrg.jpg');
+  background-size: 100vw;
+  /* background-attachment: fixed; */
+  /* background-repeat: no-repeat; */
+  background-position: 20vw center;
+  z-index: -1;
+  filter: invert(1) contrast(2);
+  opacity: 0.05;
+}
+
+.w3-wide{
+  margin-top: 50px;
 }
 
 .footer{
@@ -10,4 +43,11 @@
   align-items: center;
   margin-top: 100px;
   height: 100px;
+}
+
+@media screen and (min-width: 768px)
+{
+  .w3-bar{
+    justify-content: flex-start;
+  }
 }

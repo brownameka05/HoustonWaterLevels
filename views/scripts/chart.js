@@ -16,7 +16,7 @@ const loading = document.getElementById('Loading')
 let dailyData96Houston
 let dailyData96Buffalo
 let chartReady = false
-fetch('/recentData',{
+window.onload = () => {fetch('/recentData',{
     headers: {
         'Accept': 'application/json'
     }
@@ -28,7 +28,7 @@ fetch('/recentData',{
      chartReady = true
      drawChart()
  })
-
+}
 const waterBodyTitle = document.getElementById('water-body')
 let waterBody = 'Lake Houston'
 
@@ -55,7 +55,7 @@ function drawChart() {
     loading.innerHTML = ''
     water.style.display = 'unset'
 
-    waterBodyTitle.innerHTML = waterBody
+    waterBodyTitle.innerHTML = waterBody.toLocaleUpperCase()
 
     let dataMin
     let dataMax
@@ -126,7 +126,7 @@ function drawChart() {
 
     // clear canvas (if another graph was previously drawn)  
     ctx.clearRect( 0, 0, 500, 400 );
-    ctx.font = "12px Open Sans"; 
+    ctx.font = "12px sans-serif"; 
     // draw x and y
 
     //references x

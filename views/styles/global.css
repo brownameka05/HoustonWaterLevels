@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+html {
+    line-height: 1;
+    font-family: 'Open Sans';
+}
+
+body {
+    margin: 0;
+}
+
+
+#page-wrap{
+    background: whitesmoke;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
