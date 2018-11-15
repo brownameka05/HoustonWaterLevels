@@ -4,10 +4,14 @@ let dataRange = dataMax - dataMin
 
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext( "2d" )
-ctx.font = "16px Arial"; 
 
 const water = document.getElementById('water')
 const radios = Array.from(document.querySelectorAll('.range-radio'))
+
+const waterBodySelector = document.getElementById('water-body-selector')
+const waterInputs = Array.from(document.querySelectorAll('.water-radio'))
+
+const loading = document.getElementById('Loading')
 
 let dailyData96Houston
 let dailyData96Buffalo
@@ -28,17 +32,38 @@ fetch('/recentData',{
 const waterBodyTitle = document.getElementById('water-body')
 let waterBody = 'Lake Houston'
 
+function changeWater(){
+    waterInputs.forEach(waterInput => {
+        if(waterInput.checked){
+            waterBody = waterInput.value
+            drawChart()
+        }
+    })
+}
+
+const miliSecRegex = new RegExp(/:[\d][\d] /)
+
 function drawChart() {
 
     if(!chartReady){
         return
     }
 
+    const xLabel = document.getElementById('x-label')
+    const xMarkers = Array.from(document.querySelectorAll('.x-marker'))
+
+    loading.innerHTML = ''
+    water.style.display = 'unset'
+
     waterBodyTitle.innerHTML = waterBody
 
     let dataMin
     let dataMax
     if(waterBody == 'Lake Houston'){
+        dataMin = 30
+        dataMax = 55
+    }
+    else{
         dataMin = 80
         dataMax = 130
     }
@@ -58,12 +83,24 @@ function drawChart() {
         dataArr.push(Math.random() * 40 + 85)
     }
 
+    const today = new Date()
+
     const deskBool = window.innerWidth >= 1040
     const multiplier = deskBool ? 0.5 : 0.6
     switch(range){
         case 96:
-            dataArr = dailyData96Buffalo.map(obj => parseFloat(obj.height))
+            dataArr = (waterBody == 'Lake Houston' 
+                      ?
+                      dailyData96Houston
+                      :
+                      dailyData96Buffalo
+                      ).map(obj => parseFloat(obj.height))
             water.style.width =  deskBool ? '49.5vw' : '59.5vw'
+            xMarkers.forEach((marker,index) => {
+                const markerDate = new Date(today - (21600000 * (xMarkers.length - 1 - index)))
+                marker.children[0].innerHTML = markerDate.toDateString().slice(0,10)
+                marker.children[1].innerHTML = markerDate.toLocaleTimeString().replace(miliSecRegex,'')
+            })
             break
         case 7:
             water.style.width = deskBool ? '42.9vw' : '51.5vw'
@@ -75,7 +112,7 @@ function drawChart() {
             water.style.width = deskBool ? '50vw' : '60vw'
             break
     }
-    console.log(dataArr)
+
     const baseWidth = window.innerWidth * multiplier
     canvas.width = baseWidth * 1.1
     canvas.height = baseWidth
@@ -89,20 +126,15 @@ function drawChart() {
 
     // clear canvas (if another graph was previously drawn)  
     ctx.clearRect( 0, 0, 500, 400 );
-
+    ctx.font = "12px Open Sans"; 
     // draw x and y
-    ctx.beginPath();  
-    ctx.moveTo( GRAPH_LEFT, GRAPH_TOP );
-    ctx.lineTo( GRAPH_LEFT, GRAPH_BOTTOM );
-    // ctx.lineTo( GRAPH_RIGHT, GRAPH_BOTTOM );
-    ctx.stroke(); 
 
     //references x
 
     ctx.beginPath();
     ctx.lineJoin = "round";
-    ctx.strokeStyle = "whitesmoke";
-    ctx.fillStyle = 'whitesmoke';
+    ctx.strokeStyle = "lightblue";
+    ctx.fillStyle = 'black';
     ctx.lineWidth = 5;
 
     //first value
@@ -114,6 +146,7 @@ function drawChart() {
     // draw values line
     let finalValY
     let finalValX
+    let finalValue
     let prevX = GRAPH_LEFT + 2
     for(let i = 0; i < dataArr.length; i++ )
     {
@@ -127,6 +160,7 @@ function drawChart() {
         prevX = x
         finalValX = x
         finalValY = y
+        finalValue = dataArr[i]
     }
     ctx.stroke();
 
@@ -136,25 +170,29 @@ function drawChart() {
     ctx.lineTo(GRAPH_LEFT,firstValX)
     ctx.closePath()
 
-    ctx.fillStyle = 'rgb(9,9,175)'
+    ctx.fillStyle = 'whitesmoke'
     ctx.fill()
     ctx.stroke()
 
-    ctx.strokeStyle = '#BBB'
-    ctx.fillStyle = 'whitesmoke'
+    ctx.strokeStyle = 'lightgray'
+    ctx.fillStyle = 'black'
     ctx.lineWidth = 1;
+    ctx.fillText( "Now: " + finalValue, finalValX - 60, finalValY - 10)
     const refLines = 10 // can change to different number of reference lines
     for(let i=0;i <= refLines;i++)
     {
         ctx.beginPath();
         ctx.moveTo( GRAPH_LEFT, ( GRAPH_HEIGHT ) / refLines * i + GRAPH_TOP );
         ctx.lineTo( finalValX, ( GRAPH_HEIGHT ) / refLines * i + GRAPH_TOP );
-        ctx.fillText( (dataRange / refLines) * (refLines - i) + dataMin, GRAPH_LEFT - 20, ( GRAPH_HEIGHT ) / refLines * i + GRAPH_TOP + 5);
+        ctx.fillText( (dataRange / refLines) * (refLines - i) + dataMin, GRAPH_LEFT - 30, ( GRAPH_HEIGHT ) / refLines * i + GRAPH_TOP + 5);
         ctx.stroke();
     }
+    ctx.fillStyle = 'blue'
+    ctx.fillRect(finalValX - 4,finalValY - 4,8,8)
 }
 
 drawChart()
 
 window.addEventListener('resize',drawChart)
 radios.forEach(radio => radio.addEventListener('change',drawChart))
+waterInputs.forEach(waterInput => waterInput.addEventListener('change',changeWater))

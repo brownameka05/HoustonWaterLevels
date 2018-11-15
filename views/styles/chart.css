@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 html {
     line-height: 1;
+    font-family: 'Open Sans';
 }
 
 body {
@@ -7,7 +9,7 @@ body {
 }
 
 #page-wrap{
-    background: rgb(9,9,175);
+    background: whitesmoke;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -30,15 +32,16 @@ body {
     margin-top: 6vw;
     animation: waterY 20s infinite, waterX 5s infinite;
     animation-timing-function: linear;
-    background-color:rgb(9,9,175);
+    background-color:rgb(50,50,255);
     background-image:
-    radial-gradient(circle at 100% 150%, rgb(9, 9, 175) 24%, rgb(0,0,100) 25%, rgb(0,0,100) 28%, rgb(9,9,175) 29%, rgb(9,9,175) 36%, rgb(0,0,100) 36%, rgb(0,0,100) 40%, transparent 40%, transparent),
-    radial-gradient(circle at 0    150%, rgb(9,9,175) 24%, rgb(0,0,100) 25%, rgb(0,0,100) 28%, rgb(9,9,175) 29%, rgb(9,9,175) 36%, rgb(0,0,100) 36%, rgb(0,0,100) 40%, transparent 40%, transparent),
-    radial-gradient(circle at 50%  100%, rgb(0,0,100) 10%, rgb(9,9,175) 11%, rgb(9,9,175) 23%, rgb(0,0,100) 24%, rgb(0,0,100) 30%, rgb(9,9,175) 31%, rgb(9,9,175) 43%, rgb(0,0,100) 44%, rgb(0,0,100) 50%, rgb(9,9,175) 51%, rgb(9,9,175) 63%, rgb(0,0,100) 64%, rgb(0,0,100) 71%, transparent 71%, transparent),
-    radial-gradient(circle at 100% 50%, rgb(0,0,100) 5%, rgb(9,9,175) 6%, rgb(9,9,175) 15%, rgb(0,0,100) 16%, rgb(0,0,100) 20%, rgb(9,9,175) 21%, rgb(9,9,175) 30%, rgb(0,0,100) 31%, rgb(0,0,100) 35%, rgb(9,9,175) 36%, rgb(9,9,175) 45%, rgb(0,0,100) 46%, rgb(0,0,100) 49%, transparent 50%, transparent),
-    radial-gradient(circle at 0    50%, rgb(0,0,100) 5%, rgb(9,9,175) 6%, rgb(9,9,175) 15%, rgb(0,0,100) 16%, rgb(0,0,100) 20%, rgb(9,9,175) 21%, rgb(9,9,175) 30%, rgb(0,0,100) 31%, rgb(0,0,100) 35%, rgb(9,9,175) 36%, rgb(9,9,175) 45%, rgb(0,0,100) 46%, rgb(0,0,100) 49%, transparent 50%, transparent);
+    radial-gradient(circle at 100% 150%, rgb(50,50,255) 24%, rgb(50,40,220) 25%, rgb(50,40,220) 28%, rgb(50,50,255) 29%, rgb(50,50,255) 36%, rgb(50,40,220) 36%, rgb(50,40,220) 40%, transparent 40%, transparent),
+    radial-gradient(circle at 0    150%, rgb(50,50,255) 24%, rgb(50,40,220) 25%, rgb(50,40,220) 28%, rgb(50,50,255) 29%, rgb(50,50,255) 36%, rgb(50,40,220) 36%, rgb(50,40,220) 40%, transparent 40%, transparent),
+    radial-gradient(circle at 50%  100%, rgb(50,40,220) 10%, rgb(50,50,255) 11%, rgb(50,50,255) 23%, rgb(50,40,220) 24%, rgb(50,40,220) 30%, rgb(50,50,255) 31%, rgb(50,50,255) 43%, rgb(50,40,220) 44%, rgb(50,40,220) 50%, rgb(50,50,255) 51%, rgb(50,50,255) 63%, rgb(50,40,220) 64%, rgb(50,40,220) 71%, transparent 71%, transparent),
+    radial-gradient(circle at 100% 50%, rgb(50,40,220) 5%, rgb(50,50,255) 6%, rgb(50,50,255) 15%, rgb(50,40,220) 16%, rgb(50,40,220) 20%, rgb(50,50,255) 21%, rgb(50,50,255) 30%, rgb(50,40,220) 31%, rgb(50,40,220) 35%, rgb(50,50,255) 36%, rgb(50,50,255) 45%, rgb(50,40,220) 46%, rgb(50,40,220) 49%, transparent 50%, transparent),
+    radial-gradient(circle at 0    50%, rgb(50,40,220) 5%, rgb(50,50,255) 6%, rgb(50,50,255) 15%, rgb(50,40,220) 16%, rgb(50,40,220) 20%, rgb(50,50,255) 21%, rgb(50,50,255) 30%, rgb(50,40,220) 31%, rgb(50,40,220) 35%, rgb(50,50,255) 36%, rgb(50,50,255) 45%, rgb(50,40,220) 46%, rgb(50,40,220) 49%, transparent 50%, transparent);
     background-size: 6vw 3vw;
-    opacity: 0.5;
+    opacity: 0.9;
+    display: none;
 }
 
 #canvas{
@@ -47,7 +50,6 @@ body {
 
 .chart-label{
     position: absolute;
-    color: white;
 }
 
 #y-label{
@@ -55,16 +57,38 @@ body {
 }
 
 #x-label{
-    transform: translate(30vw,-1vw);
+    transform: translate(40px,-3vw);
+    display: flex;
+    width: 63vw;
+    justify-content: space-between;
+    font-size: 10px;
+}
+
+.x-marker{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #red-green{
-    height: calc(50vw - 100px);
+    height: calc(60vw - 100px);
     margin-top: 50px;
     width: 5vw;
-    background-image: linear-gradient(to bottom, red,rgb(0, 255, 0));
+    background-image: linear-gradient(to bottom, red,rgb(0, 255, 0),yellow);
     /* position: absolute; */
 }
+
+#Loading{
+    width: 60vw;
+    height: 60vw;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+}
+
+
 
 @keyframes waterY {
     /* 25% {background)} */
@@ -96,6 +120,14 @@ body {
         margin-top: 5vw;
     }
     #x-label{
-        transform: translate(25vw,-1vw);
+        transform: translate(55px,-3vw);
+        width: 50vw;
+    }
+    #Loading{
+        width: 50vw;
+        height: 50vw;
+    }
+    #red-green{
+        height: calc(50vw - 100px);
     }
 }

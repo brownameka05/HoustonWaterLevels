@@ -21,7 +21,7 @@ app.use(express.static('views'))
 // import the pg-promise library which is used to connect and execute SQL on a postgres database
 const pgp = require('pg-promise')()
 // connection string which is used to specify the location of the database
-const connectionString = "postgres://postgres:@localhost:5432/houstonlakes"
+const connectionString = process.env.DB_CONN
 // creating a new database object which will allow us to interact with the database
 const db = pgp(connectionString)
 
@@ -77,27 +77,6 @@ app.get('/recentData', (req,response)=>{
         const recentDataOfBuffaloBayou = buffaloBayou.slice(buffaloBayou.length >= 96 ? (buffaloBayou.length-96) : 0, buffaloBayou.length)
 
         response.send(JSON.stringify({houston:recentDataOfLakeHouston,buffalo:recentDataOfBuffaloBayou}))
-
-        // recentDataOfHouston.forEach(function(each){
-        //   count++
-        //   let waterHeight = each.height
-        //   let recordedDate = each.dateTime
-
-
-          // db.none('UPDATE waterheight SET (height,date,sitename,siteid) = ($1,$2,$3,$4) WHERE id=$5',[waterHeight,recordedDate,siteName,siteId,count]).then(function(){
-
-          // })
-          // .catch(function(error){
-          //   console.log(error)
-          // })
-         // db.none('INSERT INTO waterheight(height,date,sitename,siteid) //VALUES($1,$2,$3,$4)',[waterHeight,recordedDate,siteName,siteId])
-        // .then(function(){
-        //
-        // })
-        // .catch(function(error){
-        //   console.log(error)
-        // })
-      // })
 
     })
   })

@@ -6,8 +6,46 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="styles/chart.css">
+        <link rel="stylesheet" href="styles/header.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
+
+
+      <div class="w3-bar">
+        <a href="#" class="w3-bar-item w3-button">HOME</a>
+        <a href="#range-selector" class="w3-bar-item w3-button">FLOOD GUAGE</a>
+        <a target='_blank' href="https://www.accuweather.com/en/us/houston-tx/weather-radar" class="w3-bar-item w3-button">HOUSTON MAP</a>
+        <a target='_blank' href="https://abc13.com/weather/alerts/" class="w3-bar-item w3-button">FLOOD WARNINGS</a>
+        <a target='_blank' href="https://abc13.com/weather/how-to-get-help-phone-numbers-and-critical-info/2347003/" class="w3-bar-item w3-button">RESCUE HELP</a>
+        <a target='_blank' href="https://www.dps.texas.gov/dem/Preparedness/tips/flashFloodSafetyTips.htm" class="w3-bar-item w3-button">SAFETY TIPS</a>
+      </div>
+
+
+
+      <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
+  <h2 class="w3-wide">HOUSTON STRONG </h2>
+  <p class="w3-opacity"><i>something here</i></p>
+  <p class="w3-justify">The purpose of this Flood Warning website is to provide information collected by the gages in a user-friendly format directly to you. This information is used by the Flood Control District and by Harris County’s Office of Homeland Security and Emergency Management to inform you of imminent and current flooding conditions along bayous. It also is used by the National Weather Service to assist in the issuing of flood watches and warnings. Accurate rainfall and bayou/stream level data help you and emergency management officials make critical decisions that ultimately can reduce the risk of property damage, injuries and loss of life. The Flood Control District urges you and your family to use this information and take the appropriate precautions during times of heavy rain and flooding. You are encouraged to monitor bayou/stream levels near your homes, places of work and areas along your daily commutes.</p>
+  <div class="w3-row w3-padding-32">
+    <div class="w3-third">
+      <p>image here</p>
+      <img src="image here" class="w3-round w3-margin-bottom" style="width:60%">
+    </div>
+    <div class="w3-third">
+      <p>image here</p>
+      <img src="image here" class="w3-round w3-margin-bottom"  style="width:60%">
+    </div>
+    <div class="w3-third">
+      <p>image here</p>
+      <img src="image here" class="w3-round" style="width:60%">
+    </div>
+  </div>
+</div>
+
+
         <div id="page-wrap">
             <form id="range-selector">
                 <input class='range-radio' id="range96" type="radio" value="96" name="range" checked>
@@ -19,6 +57,12 @@
                 <input class='range-radio' id="range365" type="radio" value="365" name="range">
                 <label for="range365">Year</label>
             </form>
+            <form id="water-body-selector">
+                <input class='water-radio' id="houston-radio" type="radio" value="Lake Houston" name="water" checked>
+                <label for="houston-radio">Lake Houston</label>
+                <input class='water-radio' id="buffalo-radio" type="radio" value="Buffalo Bayou" name="water">
+                <label for="bufallo-radio">Buffalo Bayou</label>
+            </form>
             <h2 id="water-body">Lake Houston</h2>
             <div id="chart-wrapper">
                 <div id="Loading">Loading...</div>
@@ -28,9 +72,33 @@
                     <canvas id="canvas"></canvas>
                     <div id="red-green"></div>
                 </div>
-                <h2 id="x-label" class="chart-label">Time</h2>
+                <div id="x-label" class="chart-label">
+                    <div id="x-1" class="x-marker">
+                        <div class="x-marker-line-1"></div>
+                        <div class="x-marker-line-2"></div>
+                    </div>
+                    <div id="x-2" class="x-marker">
+                        <div class="x-marker-line-1"></div>
+                        <div class="x-marker-line-2"></div>
+                    </div>
+                    <div id="x-3" class="x-marker">
+                        <div class="x-marker-line-1"></div>
+                        <div class="x-marker-line-2"></div>
+                    </div>
+                    <div id="x-4" class="x-marker">
+                        <div class="x-marker-line-1"></div>
+                        <div class="x-marker-line-2"></div>
+                    </div>
+                    <div id="x-5" class="x-marker">
+                        <div class="x-marker-line-1"></div>
+                        <div class="x-marker-line-2"></div>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="footer">
+  <p>© 2018</p>
+</div>
         <script src="scripts/chart.js"></script>
     </body>
 </html>
