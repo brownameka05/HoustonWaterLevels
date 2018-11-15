@@ -15,15 +15,25 @@ const updateDaily = require('./dailyimports')
 const express = require('express')
 const mustacheExpress = require('mustache-express')
 const bodyParser = require('body-parser')
+const dotEnv = require('dotenv').config()
 const app = express()
 app.use(express.static('views'))
+
+const config = {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    port: process.env.DB_PORT,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    ssl: true
+}
 
 // import the pg-promise library which is used to connect and execute SQL on a postgres database
 const pgp = require('pg-promise')()
 // connection string which is used to specify the location of the database
 const connectionString = process.env.DB_CONN
 // creating a new database object which will allow us to interact with the database
-const db = pgp(connectionString)
+const db = pgp(config)
 
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -77,11 +87,27 @@ app.get('/recentData', (req,response)=>{
         const recentDataOfBuffaloBayou = buffaloBayou.slice(buffaloBayou.length >= 96 ? (buffaloBayou.length-96) : 0, buffaloBayou.length)
 
         response.send(JSON.stringify({houston:recentDataOfLakeHouston,buffalo:recentDataOfBuffaloBayou}))
-
     })
   })
+})
 
-
+app.get('/pastYear', (req,res) => {
+  db.any('select w.siteid, w.sitename, w.height, w.date from waterheights w where w.date between now() - INTERVAL \'365 DAYS\' and now();')
+  .then(rows => {
+    let buffaloData = []
+    let houstonData = []
+    rows.forEach(row => {
+      if(row.siteid == 8072000){
+        houstonData.push(row)
+      }
+      else{
+        buffaloData.push(row)
+      }
+    })
+    houstonData.sort((a,b)=> a.date > b.date ? -1:1)
+    buffaloData.sort((a,b)=> a.date > b.date ? -1:1)
+    res.send(JSON.stringify({buffalo: buffaloData,houston:houstonData}))
+  })
 })
 
 

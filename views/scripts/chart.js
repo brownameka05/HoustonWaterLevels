@@ -15,19 +15,35 @@ const loading = document.getElementById('Loading')
 
 let dailyData96Houston
 let dailyData96Buffalo
+let pastYearHouston
+let pastYearBuffalo
 let chartReady = false
-window.onload = () => {fetch('/recentData',{
-    headers: {
-        'Accept': 'application/json'
-    }
-})
- .then(response => response.json())
- .then(data => {
-     dailyData96Houston = data.houston
-     dailyData96Buffalo = data.buffalo
-     chartReady = true
-     drawChart()
- })
+window.onload = () => {
+    fetch('/recentData',{
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        dailyData96Houston = data.houston
+        dailyData96Buffalo = data.buffalo
+        chartReady = true
+        fetch('/pastYear',{
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            pastYearHouston = data.houston
+            pastYearBuffalo = data.buffalo
+            drawChart()
+            loading.innerHTML = ''
+            water.style.display = 'unset'
+        })
+    })
+
 }
 const waterBodyTitle = document.getElementById('water-body')
 let waterBody = 'Lake Houston'
@@ -51,9 +67,6 @@ function drawChart() {
 
     const xLabel = document.getElementById('x-label')
     const xMarkers = Array.from(document.querySelectorAll('.x-marker'))
-
-    loading.innerHTML = ''
-    water.style.display = 'unset'
 
     waterBodyTitle.innerHTML = waterBody.toLocaleUpperCase()
 
@@ -104,12 +117,30 @@ function drawChart() {
             break
         case 7:
             water.style.width = deskBool ? '42.9vw' : '51.5vw'
+            dataArr = (waterBody == 'Lake Houston' 
+                      ?
+                      pastYearHouston.slice(0,7)
+                      :
+                      pastYearBuffalo.slice(0,7)
+                      ).map(obj => parseFloat(obj.height))
             break
         case 31:
             water.style.width = deskBool ? '48.5vw' : '58.5vw'
+            dataArr = (waterBody == 'Lake Houston' 
+                      ?
+                      pastYearHouston.slice(0,32)
+                      :
+                      pastYearBuffalo.slice(0,32)
+                      ).map(obj => parseFloat(obj.height))
             break
         case 365:
             water.style.width = deskBool ? '50vw' : '60vw'
+            dataArr = (waterBody == 'Lake Houston' 
+                      ?
+                      pastYearHouston
+                      :
+                      pastYearBuffalo
+                      ).map(obj => parseFloat(obj.height))
             break
     }
 
