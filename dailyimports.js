@@ -85,66 +85,6 @@ function oneDayData(siteUrls, db) {
                 .then(after => console.log("DONE"))
             })
             .catch(err => console.log(err));
-
-
-
-
-        /*
-        let sitesArray = []
-        let recentDataOfSites = [] 
-
-        const https = require("https");
-
-        const url = siteUrls[i]
-
-        https.get(url, res => {
-            
-            res.setEncoding("utf8");
-            let body = "";
-            res.on("data", data => {
-                body += data;
-            });
-
-            res.on("end", () => {
-
-                body = JSON.parse(body);
-                let dataObject = body.value.timeSeries[0].values[0].value
-
-                let siteName = body.value.timeSeries[0].sourceInfo.siteName
-                let siteId = body.value.timeSeries[0].sourceInfo.siteCode[0].value
-
-                dataObject.forEach(function(each){
-                    let height = each.value
-                    let dateTime = each.dateTime
-                    let dataOfHoustonLake = {height:height, dateTime:dateTime}
-                    sitesArray.push(dataOfHoustonLake)
-                })
-
-                let dataOfDay1 = sitesArray.slice(49,50)
-                let dataOfDay2 = sitesArray.slice(109,110)
-
-                recentDataOfSites.push(dataOfDay2)
-                recentDataOfSites.push(dataOfDay1)
-
-                recentDataOfSites.forEach(function(each){
-                    let waterHeight = each[0].height
-                    let recordedDate = each[0].dateTime.replace('T',' ')
-
-                db.none('INSERT INTO waterheights (siteid,sitename,height,date) VALUES ($1,$2,$3,$4)',[siteId,siteName,waterHeight,recordedDate])
-                    .then(function(){
-                        console.log('Inserts complete')
-                    })
-                    .catch(function(error){
-                        console.log(error)
-                    })
-
-                })
-            }) 
-        })
-
-        */
-
-
     }
 }
 
