@@ -5,17 +5,18 @@
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 50px;
+  margin-bottom: 100%;
   z-index: 2;
 }
 
 .w3-button{
   background: none;
+  font-size: 3vw;
 }
 
 #teaser-p{
   text-indent: 50px;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.1);
 }
 
 #header-bckg{
@@ -41,7 +42,7 @@
   background-color: lightgrey;
   justify-content: center;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 500px;
   height: 100px;
 }
 

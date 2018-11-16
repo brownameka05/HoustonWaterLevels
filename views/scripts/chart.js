@@ -13,6 +13,8 @@ const waterInputs = Array.from(document.querySelectorAll('.water-radio'))
 
 const loading = document.getElementById('Loading')
 
+const currentLevel = document.getElementById('current-level')
+
 let dailyData96Houston
 let dailyData96Buffalo
 let pastYearHouston
@@ -38,6 +40,7 @@ window.onload = () => {
         .then(data => {
             pastYearHouston = data.houston
             pastYearBuffalo = data.buffalo
+            currentLevel.innerHTML = 'Current level: ' + dailyData96Houston[0].height + ' ft'
             drawChart()
             loading.innerHTML = ''
             water.style.display = 'unset'
@@ -59,6 +62,8 @@ function changeWater(){
 
 const miliSecRegex = new RegExp(/:[\d][\d] /)
 
+const yMarkers = Array.from(document.querySelectorAll('.y-marker'))
+
 function drawChart() {
 
     if(!chartReady){
@@ -75,10 +80,12 @@ function drawChart() {
     if(waterBody == 'Lake Houston'){
         dataMin = 30
         dataMax = 55
+        currentLevel.innerHTML = 'Current level: ' + dailyData96Houston[0].height + ' ft'
     }
     else{
         dataMin = 80
         dataMax = 130
+        currentLevel.innerHTML = 'Current level: ' + dailyData96Buffalo[0].height + ' ft'
     }
     let dataRange = dataMax - dataMin
 
@@ -99,7 +106,8 @@ function drawChart() {
     const today = new Date()
 
     const deskBool = window.innerWidth >= 1040
-    const multiplier = deskBool ? 0.5 : 0.6
+    const multiplier = deskBool ? 0.5 : 0.7
+    
     switch(range){
         case 96:
             dataArr = (waterBody == 'Lake Houston' 
@@ -108,7 +116,6 @@ function drawChart() {
                       :
                       dailyData96Buffalo
                       ).map(obj => parseFloat(obj.height))
-            water.style.width =  deskBool ? '49.5vw' : '59.5vw'
             xMarkers.forEach((marker,index) => {
                 const markerDate = new Date(today - (21600000 * (xMarkers.length - 1 - index)))
                 marker.children[0].innerHTML = markerDate.toDateString().slice(0,10)
@@ -116,7 +123,6 @@ function drawChart() {
             })
             break
         case 7:
-            water.style.width = deskBool ? '42.9vw' : '51.5vw'
             dataArr = (waterBody == 'Lake Houston' 
                       ?
                       pastYearHouston.slice(0,7)
@@ -125,7 +131,6 @@ function drawChart() {
                       ).map(obj => parseFloat(obj.height))
             break
         case 31:
-            water.style.width = deskBool ? '48.5vw' : '58.5vw'
             dataArr = (waterBody == 'Lake Houston' 
                       ?
                       pastYearHouston.slice(0,32)
@@ -134,7 +139,6 @@ function drawChart() {
                       ).map(obj => parseFloat(obj.height))
             break
         case 365:
-            water.style.width = deskBool ? '50vw' : '60vw'
             dataArr = (waterBody == 'Lake Houston' 
                       ?
                       pastYearHouston
@@ -148,16 +152,22 @@ function drawChart() {
     canvas.width = baseWidth * 1.1
     canvas.height = baseWidth
 
+    const skyGradient = ctx.createLinearGradient(0,0,baseWidth * 0.5,baseWidth)
+    skyGradient.addColorStop(0,"lightgoldenrodyellow");
+    skyGradient.addColorStop(0.5,"lightcyan");
+    skyGradient.addColorStop(1,"lightcyan");
+
     // declare graph start and end  
     let GRAPH_TOP = baseWidth * 0.1
     let GRAPH_LEFT = baseWidth * 0.1  
     let GRAPH_RIGHT = baseWidth
     let GRAPH_BOTTOM = baseWidth * 0.9
     let GRAPH_HEIGHT = baseWidth * 0.8
+    let GRAPH_WIDTH = GRAPH_RIGHT - GRAPH_LEFT
 
     // clear canvas (if another graph was previously drawn)  
     ctx.clearRect( 0, 0, 500, 400 );
-    ctx.font = "12px sans-serif"; 
+    ctx.font = "2vw Oswald"; 
     // draw x and y
 
     //references x
@@ -173,7 +183,6 @@ function drawChart() {
     const firstValY = ( GRAPH_HEIGHT - (dataArr[0] - dataMin) / dataRange * GRAPH_HEIGHT)  + GRAPH_TOP
     ctx.moveTo(firstValX, firstValY)
     // ctx.fillRect(firstValX - 4,firstValY - 4,8,8)
-
     // draw values line
     let finalValY
     let finalValX
@@ -182,7 +191,7 @@ function drawChart() {
     for(let i = 0; i < dataArr.length; i++ )
     {
         // const x = GRAPH_RIGHT / (dataArr.length) * i + GRAPH_LEFT + 2
-        const x = i == 0 ? prevX : prevX + (GRAPH_RIGHT / (dataArr.length))
+        const x = i == 0 ? prevX : prevX + GRAPH_WIDTH / (dataArr.length - 1)
         const y = ( GRAPH_HEIGHT - (dataArr[ i ] - dataMin) / dataRange * GRAPH_HEIGHT ) + GRAPH_TOP
         // ctx.fillRect(x - 4,y - 4,8,8)
         ctx.lineTo( x, y )
@@ -193,6 +202,7 @@ function drawChart() {
         finalValY = y
         finalValue = dataArr[i]
     }
+
     ctx.stroke();
 
     ctx.strokeStyle = 'rgba(0,0,0,0)'
@@ -201,23 +211,22 @@ function drawChart() {
     ctx.lineTo(GRAPH_LEFT,firstValX)
     ctx.closePath()
 
-    ctx.fillStyle = 'whitesmoke'
+    ctx.fillStyle = skyGradient
     ctx.fill()
     ctx.stroke()
-
     ctx.strokeStyle = 'lightgray'
     ctx.fillStyle = 'black'
     ctx.lineWidth = 1;
-    ctx.fillText( "Now: " + finalValue, finalValX - 60, finalValY - 10)
     const refLines = 10 // can change to different number of reference lines
     for(let i=0;i <= refLines;i++)
     {
         ctx.beginPath();
         ctx.moveTo( GRAPH_LEFT, ( GRAPH_HEIGHT ) / refLines * i + GRAPH_TOP );
         ctx.lineTo( finalValX, ( GRAPH_HEIGHT ) / refLines * i + GRAPH_TOP );
-        ctx.fillText( (dataRange / refLines) * (refLines - i) + dataMin, GRAPH_LEFT - 30, ( GRAPH_HEIGHT ) / refLines * i + GRAPH_TOP + 5);
+        // ctx.fillText( (dataRange / refLines) * (refLines - i) + dataMin, GRAPH_LEFT - 10, ( GRAPH_HEIGHT ) / refLines * i + GRAPH_TOP + 5);
         ctx.stroke();
     }
+    ctx.fillText( finalValue + ' ft', finalValX - 40, finalValY - 10)
     ctx.fillStyle = 'blue'
     ctx.fillRect(finalValX - 4,finalValY - 4,8,8)
 }

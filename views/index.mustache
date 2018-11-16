@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Chart</title>
+        <title>HOUSTON STRONG</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -57,14 +57,28 @@
                 <input class='range-radio' id="range365" type="radio" value="365" name="range">
                 <label for="range365">Year</label>
             </form>
-            <h2 id="water-body">LAKE HOUSTON</h2>
+            <h2 id="water-body"></h2>
+            <div id="current-level"></div>
+            <div id="above-flood"></div>
             <div id="chart-wrapper">
                 <div id="Loading">Loading...</div>
                 <h2 id="y-label" class="chart-label">Gauge Height (ft)</h2>
                 <div id="CHART">
                     <div id="water"></div>
                     <canvas id="canvas"></canvas>
-                    <div id="red-green"></div>
+                    <div id="red-green">
+                        <div class="y-marker">55</div>
+                        <div class="y-marker">52.5</div>
+                        <div class="y-marker">50</div>
+                        <div class="y-marker">47.5</div>
+                        <div class="y-marker">45</div>
+                        <div class="y-marker">42.5</div>
+                        <div class="y-marker">40</div>
+                        <div class="y-marker">37.5</div>
+                        <div class="y-marker">35</div>
+                        <div class="y-marker">32.5</div>
+                        <div class="y-marker">30</div>
+                    </div>
                 </div>
                 <div id="x-label" class="chart-label">
                     <div id="x-1" class="x-marker">

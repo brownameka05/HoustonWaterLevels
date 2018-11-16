@@ -1,26 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
 #CHART{
-    width: 60vw;
-    height: 60vw;
+    width: 70vw;
+    height: 70vw;
     display: flex;
 }
 
 #water{
     position: absolute;
-    height: 48vw;
-    width: 51.5vw;
-    margin-left: 6vw;
-    margin-top: 6vw;
+    height: 56vw;
+    width: 63vw;
+    margin-left: 7vw;
+    margin-top: 7vw;
     animation: waterY 20s infinite, waterX 5s infinite;
     animation-timing-function: linear;
     background-color:rgb(50,50,255);
-    background-image:
+    /* background-image:
     radial-gradient(circle at 100% 150%, rgb(50,50,255) 24%, rgb(50,40,220) 25%, rgb(50,40,220) 28%, rgb(50,50,255) 29%, rgb(50,50,255) 36%, rgb(50,40,220) 36%, rgb(50,40,220) 40%, transparent 40%, transparent),
     radial-gradient(circle at 0    150%, rgb(50,50,255) 24%, rgb(50,40,220) 25%, rgb(50,40,220) 28%, rgb(50,50,255) 29%, rgb(50,50,255) 36%, rgb(50,40,220) 36%, rgb(50,40,220) 40%, transparent 40%, transparent),
     radial-gradient(circle at 50%  100%, rgb(50,40,220) 10%, rgb(50,50,255) 11%, rgb(50,50,255) 23%, rgb(50,40,220) 24%, rgb(50,40,220) 30%, rgb(50,50,255) 31%, rgb(50,50,255) 43%, rgb(50,40,220) 44%, rgb(50,40,220) 50%, rgb(50,50,255) 51%, rgb(50,50,255) 63%, rgb(50,40,220) 64%, rgb(50,40,220) 71%, transparent 71%, transparent),
     radial-gradient(circle at 100% 50%, rgb(50,40,220) 5%, rgb(50,50,255) 6%, rgb(50,50,255) 15%, rgb(50,40,220) 16%, rgb(50,40,220) 20%, rgb(50,50,255) 21%, rgb(50,50,255) 30%, rgb(50,40,220) 31%, rgb(50,40,220) 35%, rgb(50,50,255) 36%, rgb(50,50,255) 45%, rgb(50,40,220) 46%, rgb(50,40,220) 49%, transparent 50%, transparent),
-    radial-gradient(circle at 0    50%, rgb(50,40,220) 5%, rgb(50,50,255) 6%, rgb(50,50,255) 15%, rgb(50,40,220) 16%, rgb(50,40,220) 20%, rgb(50,50,255) 21%, rgb(50,50,255) 30%, rgb(50,40,220) 31%, rgb(50,40,220) 35%, rgb(50,50,255) 36%, rgb(50,50,255) 45%, rgb(50,40,220) 46%, rgb(50,40,220) 49%, transparent 50%, transparent);
-    background-size: 6vw 3vw;
-    opacity: 0.9;
+    radial-gradient(circle at 0    50%, rgb(50,40,220) 5%, rgb(50,50,255) 6%, rgb(50,50,255) 15%, rgb(50,40,220) 16%, rgb(50,40,220) 20%, rgb(50,50,255) 21%, rgb(50,50,255) 30%, rgb(50,40,220) 31%, rgb(50,40,220) 35%, rgb(50,50,255) 36%, rgb(50,50,255) 45%, rgb(50,40,220) 46%, rgb(50,40,220) 49%, transparent 50%, transparent); */
+    background-image: url('https://media1.giphy.com/media/10Ua7rs9fxa8QE/giphy.gif?cid=3640f6095beee6ac7269702e59423119');
+    /* background-size: 6vw 3vw; */
+    background-size: cover;
+    filter: invert(1);
+    opacity: 0.09;
     display: none;
 }
 
@@ -38,15 +42,17 @@
 }
 
 #x-label{
-    transform: translate(5vw,-3vw);
+    transform: translate(7vw,-3vw);
     display: flex;
     width: 63vw;
+    border: 2px solid black;
     justify-content: space-between;
-    font-size: 1.5vw;
+    font-size: 3vw;
 }
 
 #chart-wrapper{
-    margin-left: -5vw;
+    margin-left: -2vw;
+    font-family: 'Oswald'
 }
 
 .x-marker{
@@ -56,12 +62,16 @@
 }
 
 #red-green{
-    height: calc(50vw);
+    height: 60vw;
     margin-top: 5vw;
-    margin-right: -2vw;
-    width: 5.5vw;
+    width: 7vw;
     background-image: linear-gradient(to bottom, red,rgb(0, 255, 0),yellow);
     /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 2vw;
 }
 
 #Loading{
@@ -75,7 +85,14 @@
 }
 
 #water-body{
-    margin: 5vw 0 -5vw 0;
+    margin: 5vw 0 -2vw 0;
+    font-family: 'Oswald';
+    font-size: 6.5vw;
+}
+
+#current-level{
+    font-size: 2.5vw;
+    margin-top: 30px;
 }
 
 @keyframes waterY {
@@ -98,6 +115,9 @@
     #x-label{
         font-size: 1vw;
     }
+    #red-green{
+        height: calc(59vw);
+    }
 }
 
 @media screen and (min-width: 1040px){
@@ -107,7 +127,7 @@
     }
     #water{
         height: 40vw;
-        width: 42.9vw;
+        width: 45vw;
         margin-left: 5vw;
         margin-top: 5vw;
     }
@@ -124,8 +144,8 @@
         height: 50vw;
     }
     #red-green{
-        height: calc(41vw);
-        margin-top: 4.5vw;
+        height: calc(42.5vw);
+        margin-top: 3.5vw;
         width: 5vw;
     }
 }
