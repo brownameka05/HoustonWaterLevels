@@ -1,7 +1,18 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Oswald');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300|Oswald|Source+Serif+Pro');
 html {
     line-height: 1;
+}
+
+* {
+    font-family: 'Oswald';
+}
+
+h1{
     font-family: 'Open Sans';
+}
+
+p{
+    font-family: 'Source Serif Pro'
 }
 
 body {
@@ -31,4 +42,16 @@ label{
 
 [type=radio]:checked + label{
     background-color: lightblue;
+}
+
+@media screen and (min-width:768px){
+    h1{
+        font-size: 5vw;
+    }
+}
+
+@media screen and (min-width:1040px){
+    h1{
+        font-size: 4vw;
+    }
 }

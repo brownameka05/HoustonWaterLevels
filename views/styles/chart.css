@@ -39,6 +39,7 @@
 #y-label{
     transform: rotate(-90deg) translate(-30vw,-20vw);
     font-size: 4vw;
+    font-family: 'Oswald';
 }
 
 #x-label{
@@ -89,7 +90,7 @@
 }
 
 #water-body{
-    margin: 10vw 0 -4vw 0;
+    margin: 20px 0 -4vw 0;
     font-family: 'Oswald';
     font-size: 6.5vw;
 }
@@ -126,8 +127,8 @@
 
 @media screen and (min-width: 1040px){
     #CHART{
-        width: 50vw;
-        height: 50vw;
+        width: 40vw;
+        height: 40vw;
     }
     #water{
         height: 40vw;
@@ -142,20 +143,23 @@
         font-size: 3vw;
     }
     #x-label{
-        transform: translate(2vw,-3vw);
+        transform: translate(2vw,7vw);
         width: 51vw;
         font-size: 2vw;
+    }
+    #chart-wrapper{
+        margin-left: -11vw;
     }
     .x-marker-line-2{
         font-size: 1.5vw;
     }
     #y-label{
-        transform: rotate(-90deg) translate(-20vw,-15vw);
+        transform: rotate(-90deg) translate(-20vw,-12vw);
         font-size: 2.5vw;
     }
     #Loading{
-        width: 50vw;
-        height: 50vw;
+        width: 40vw;
+        height: 40vw;
         font-size: 3vw;
     }
     #red-green{
