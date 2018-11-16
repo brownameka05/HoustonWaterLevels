@@ -18,3 +18,17 @@ body {
     flex-direction: column;
     align-items: center;
 }
+
+[type=radio]{
+    display: none;
+}
+
+label{
+    background-color: white;
+    border-radius: 20% / 5%;
+    transition: background-color .35s ease;
+}
+
+[type=radio]:checked + label{
+    background-color: lightblue;
+}
