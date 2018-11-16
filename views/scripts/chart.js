@@ -108,6 +108,7 @@ function drawChart() {
     const deskBool = window.innerWidth >= 1040
     const multiplier = deskBool ? 0.5 : 0.7
     
+    let yLabelDivider
     switch(range){
         case 96:
             dataArr = (waterBody == 'Lake Houston' 
@@ -116,10 +117,18 @@ function drawChart() {
                       :
                       dailyData96Buffalo
                       ).map(obj => parseFloat(obj.height))
+            yLabelDivider = Math.round(dataArr.length / 4)
             xMarkers.forEach((marker,index) => {
-                const markerDate = new Date(today - (21600000 * (xMarkers.length - 1 - index)))
-                marker.children[0].innerHTML = markerDate.toDateString().slice(0,10)
-                marker.children[1].innerHTML = markerDate.toLocaleTimeString().replace(miliSecRegex,'')
+                const markerDate = new Date(today - (21600000 * (5 - 1 - index)))
+                if(index >= 5){
+                    marker.children[0].innerHTML = ''
+                    marker.children[1].innerHTML = ''
+                    marker.style.display = 'none'
+                }
+                else{
+                    marker.children[0].innerHTML = markerDate.toLocaleTimeString().replace(miliSecRegex,'')
+                    marker.children[1].innerHTML = markerDate.toDateString().slice(0,10)
+                }
             })
             break
         case 7:
@@ -129,14 +138,42 @@ function drawChart() {
                       :
                       pastYearBuffalo.slice(0,7)
                       ).map(obj => parseFloat(obj.height))
+            yLabelDivider = Math.round(dataArr.length / 7)
+            xMarkers.forEach((marker,index) => {
+                const markerDate = new Date(today - (86400000 * (7 - 1 - index)))
+                if(index >= 7){
+                    marker.children[0].innerHTML = ''
+                    marker.children[1].innerHTML = ''
+                    marker.style.display = 'none'
+                }
+                else{
+                    marker.style.display = 'flex'
+                    marker.children[0].innerHTML = markerDate.toDateString().slice(4,10)
+                    marker.children[1].innerHTML = ''
+                }
+            })
             break
         case 31:
             dataArr = (waterBody == 'Lake Houston' 
                       ?
-                      pastYearHouston.slice(0,32)
+                      pastYearHouston.slice(0,29)
                       :
-                      pastYearBuffalo.slice(0,32)
+                      pastYearBuffalo.slice(0,29)
                       ).map(obj => parseFloat(obj.height))
+            yLabelDivider = Math.round(dataArr.length / 4)
+            xMarkers.forEach((marker,index) => {
+                const markerDate = new Date(today - (604800000 * (5 - 1 - index)))
+                if(index >= 5){
+                    marker.children[0].innerHTML = ''
+                    marker.children[1].innerHTML = ''
+                    marker.style.display = 'none'
+                }
+                else{
+                    marker.style.display = 'flex'
+                    marker.children[0].innerHTML = markerDate.toDateString().slice(4,10)
+                    marker.children[1].innerHTML = ''
+                }
+            })
             break
         case 365:
             dataArr = (waterBody == 'Lake Houston' 
@@ -145,6 +182,23 @@ function drawChart() {
                       :
                       pastYearBuffalo
                       ).map(obj => parseFloat(obj.height))
+            yLabelDivider = Math.round(dataArr.length / 13)
+            xMarkers.forEach((marker,index) => {
+                const markerDate = new Date(today - (2678400000 * (12 - 1 - index)))
+                if(index >= 12)
+                {
+                    marker.children[0].innerHTML = ''
+                    marker.children[1].innerHTML = ''
+                    marker.style.display = 'none'
+                }
+                else
+                {
+                    marker.style.display = 'flex'
+                    marker.children[0].innerHTML = markerDate.toDateString().slice(4,7)
+                    marker.children[1].innerHTML = markerDate.toDateString().slice(10,15)
+                }
+            })
+            xLabel.style.width = parseInt(xLabel.style.width.slice(0,1)) * 0.8 + 'vw'
             break
     }
 
@@ -188,6 +242,7 @@ function drawChart() {
     let finalValX
     let finalValue
     let prevX = GRAPH_LEFT + 2
+
     for(let i = 0; i < dataArr.length; i++ )
     {
         // const x = GRAPH_RIGHT / (dataArr.length) * i + GRAPH_LEFT + 2
@@ -195,6 +250,9 @@ function drawChart() {
         const y = ( GRAPH_HEIGHT - (dataArr[ i ] - dataMin) / dataRange * GRAPH_HEIGHT ) + GRAPH_TOP
         // ctx.fillRect(x - 4,y - 4,8,8)
         ctx.lineTo( x, y )
+        if(i % yLabelDivider == 0){
+            ctx.fillRect(x - 2,GRAPH_BOTTOM - 4,3,8)
+        }
         // ctx.fillText( i, x - 3, GRAPH_BOTTOM + baseWidth * 0.05)
         // ctx.fillText( i, GRAPH_RIGHT / dataArr.length * i, GRAPH_BOTTOM + 25)
         prevX = x
@@ -202,7 +260,7 @@ function drawChart() {
         finalValY = y
         finalValue = dataArr[i]
     }
-
+    ctx.fillRect(GRAPH_RIGHT,GRAPH_BOTTOM - 4,3,8)
     ctx.stroke();
 
     ctx.strokeStyle = 'rgba(0,0,0,0)'
@@ -226,7 +284,6 @@ function drawChart() {
         // ctx.fillText( (dataRange / refLines) * (refLines - i) + dataMin, GRAPH_LEFT - 10, ( GRAPH_HEIGHT ) / refLines * i + GRAPH_TOP + 5);
         ctx.stroke();
     }
-    ctx.fillText( finalValue + ' ft', finalValX - 40, finalValY - 10)
     ctx.fillStyle = 'blue'
     ctx.fillRect(finalValX - 4,finalValY - 4,8,8)
 }

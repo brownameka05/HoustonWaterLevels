@@ -51,4 +51,7 @@
   .w3-bar{
     justify-content: flex-start;
   }
+  .w3-button{
+    font-size: 1.5vw;
+  }
 }

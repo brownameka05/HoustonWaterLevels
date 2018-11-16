@@ -37,17 +37,21 @@
 }
 
 #y-label{
-    transform: rotate(-90deg) translate(-20vw,-25vw);
+    transform: rotate(-90deg) translate(-30vw,-20vw);
     font-size: 4vw;
 }
 
 #x-label{
-    transform: translate(7vw,-3vw);
+    transform: translate(2vw,-3vw);
     display: flex;
-    width: 63vw;
-    border: 2px solid black;
+    width: 72vw;
+    /* border: 2px solid black; */
     justify-content: space-between;
     font-size: 3vw;
+}
+
+.x-marker-line-2{
+    font-size: 2vw;
 }
 
 #chart-wrapper{
@@ -64,19 +68,19 @@
 #red-green{
     height: 60vw;
     margin-top: 5vw;
-    width: 7vw;
+    width: 6.5vw;
     background-image: linear-gradient(to bottom, red,rgb(0, 255, 0),yellow);
     /* position: absolute; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-end;
+    text-align: right;
     font-size: 2vw;
 }
 
 #Loading{
-    width: 60vw;
-    height: 60vw;
+    width: 70vw;
+    height: 70vw;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -85,13 +89,13 @@
 }
 
 #water-body{
-    margin: 5vw 0 -2vw 0;
+    margin: 10vw 0 -4vw 0;
     font-family: 'Oswald';
     font-size: 6.5vw;
 }
 
 #current-level{
-    font-size: 2.5vw;
+    font-size: 4vw;
     margin-top: 30px;
 }
 
@@ -109,11 +113,11 @@
 
 @media screen and (min-width: 768px){
     #y-label{
-        transform: rotate(-90deg) translate(-20vw,-18vw);
+        transform: rotate(-90deg) translate(-30vw,-15vw);
         font-size: 3vw;
     }
     #x-label{
-        font-size: 1vw;
+        font-size: 3vw;
     }
     #red-green{
         height: calc(59vw);
@@ -131,17 +135,28 @@
         margin-left: 5vw;
         margin-top: 5vw;
     }
+    #water-body{
+        font-size: 5vw;
+    }
+    #current-level{
+        font-size: 3vw;
+    }
     #x-label{
-        transform: translate(55px,-3vw);
-        width: 50vw;
+        transform: translate(2vw,-3vw);
+        width: 51vw;
+        font-size: 2vw;
+    }
+    .x-marker-line-2{
+        font-size: 1.5vw;
     }
     #y-label{
-        transform: rotate(-90deg) translate(-20vw,-12vw);
-        font-size: 2vw;
+        transform: rotate(-90deg) translate(-20vw,-15vw);
+        font-size: 2.5vw;
     }
     #Loading{
         width: 50vw;
         height: 50vw;
+        font-size: 3vw;
     }
     #red-green{
         height: calc(42.5vw);
