@@ -213,11 +213,6 @@ function drawChart() {
     canvas.width = baseWidth * 1.1
     canvas.height = baseWidth
 
-    const skyGradient = ctx.createLinearGradient(0,0,baseWidth * 0.5,baseWidth)
-    skyGradient.addColorStop(0,"lightgoldenrodyellow");
-    skyGradient.addColorStop(0.5,"lightcyan");
-    skyGradient.addColorStop(1,"lightcyan");
-
     // declare graph start and end  
     let GRAPH_TOP = baseWidth * 0.1
     let GRAPH_LEFT = baseWidth * 0.1  
@@ -235,7 +230,7 @@ function drawChart() {
 
     ctx.beginPath();
     ctx.lineJoin = "round";
-    ctx.strokeStyle = "lightblue";
+    ctx.strokeStyle = "black";
     ctx.fillStyle = 'black';
     ctx.lineWidth = 5;
 
@@ -277,7 +272,7 @@ function drawChart() {
     ctx.lineTo(GRAPH_LEFT,firstValX)
     ctx.closePath()
 
-    ctx.fillStyle = skyGradient
+    ctx.fillStyle = "lightcyan"
     ctx.fill()
     ctx.stroke()
     ctx.strokeStyle = 'lightgray'
