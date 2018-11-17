@@ -1,17 +1,18 @@
 .w3-bar{
   text-align: center;
   background-color: rgba(230,230,230,0.5);
-  position: fixed;
-  justify-content: center;
+  /* position: fixed; */
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 100%;
   z-index: 2;
+}
+
+img{
+  width: 95%;
 }
 
 .w3-button{
   background: none;
-  font-size: 2.5vw;
 }
 
 #teaser-p{
@@ -44,6 +45,18 @@
   align-items: center;
   margin-top: 500px;
   height: 100px;
+}
+
+#read-more{
+  color: blue;
+}
+
+#read-more:hover{
+  cursor: pointer;
+}
+
+#more{
+  display: none;
 }
 
 @media screen and (min-width: 768px)

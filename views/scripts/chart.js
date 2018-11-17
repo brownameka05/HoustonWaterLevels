@@ -15,6 +15,9 @@ const loading = document.getElementById('Loading')
 
 const currentLevel = document.getElementById('current-level')
 
+const harveyButton = document.getElementById('harvey')
+harveyButton.style.display = 'none'
+
 let dailyData96Houston
 let dailyData96Buffalo
 let pastYearHouston
@@ -63,6 +66,8 @@ function changeWater(){
 const miliSecRegex = new RegExp(/:[\d][\d] /)
 
 const yMarkers = Array.from(document.querySelectorAll('.y-marker'))
+const yHouston = [55,52.5,50,47.5,45,42.5,40,37.5,35,32.5,30]
+const yBuffalo = [130,125,120,115,110,105,100,95,90,85,80]
 
 function drawChart() {
 
@@ -81,11 +86,13 @@ function drawChart() {
         dataMin = 30
         dataMax = 55
         currentLevel.innerHTML = 'Current level: ' + dailyData96Houston[0].height + ' ft'
+        yMarkers.forEach((marker,index) => marker.innerHTML = yHouston[index])
     }
     else{
         dataMin = 80
         dataMax = 130
         currentLevel.innerHTML = 'Current level: ' + dailyData96Buffalo[0].height + ' ft'
+        yMarkers.forEach((marker,index) => marker.innerHTML = yBuffalo[index])
     }
     let dataRange = dataMax - dataMin
 
@@ -182,7 +189,7 @@ function drawChart() {
                       :
                       pastYearBuffalo
                       ).map(obj => parseFloat(obj.height))
-            yLabelDivider = Math.round(dataArr.length / 13)
+            yLabelDivider = Math.round(dataArr.length / 11)
             xMarkers.forEach((marker,index) => {
                 const markerDate = new Date(today - (2678400000 * (12 - 1 - index)))
                 if(index >= 12)
@@ -198,7 +205,7 @@ function drawChart() {
                     marker.children[1].innerHTML = markerDate.toDateString().slice(10,15)
                 }
             })
-            xLabel.style.width = parseInt(xLabel.style.width.slice(0,1)) * 0.8 + 'vw'
+            // xLabel.style.width = '40vw'
             break
     }
 
@@ -260,6 +267,7 @@ function drawChart() {
         finalValY = y
         finalValue = dataArr[i]
     }
+
     ctx.fillRect(GRAPH_RIGHT,GRAPH_BOTTOM - 4,3,8)
     ctx.stroke();
 
@@ -286,6 +294,18 @@ function drawChart() {
     }
     ctx.fillStyle = 'blue'
     ctx.fillRect(finalValX - 4,finalValY - 4,8,8)
+
+    ctx.fillStyle = 'red'
+    let harveyY
+    if(waterBody == 'Lake Houston'){
+        harveyY = (GRAPH_TOP - 12 + GRAPH_HEIGHT * (1-0.9248))
+    }
+    else{
+        harveyY = (GRAPH_TOP - 12 + GRAPH_HEIGHT * (1-0.7352))
+    }
+    harveyButton.style.display = 'flex'
+    harveyButton.style.transform = 'translate(' + (GRAPH_RIGHT - 5) + 'px,' + harveyY + 'px)'
+    // ctx.fillText('Hurricane Harvey: ',(GRAPH_RIGHT * 0.72),harveyY + 15)
 }
 
 drawChart()

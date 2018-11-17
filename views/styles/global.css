@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300|Oswald|Source+Serif+Pro');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300|Oswald|PT+Serif');
 html {
     line-height: 1;
 }
@@ -9,10 +9,11 @@ html {
 
 h1{
     font-family: 'Open Sans';
+    font-size: 10vw;
 }
 
-p{
-    font-family: 'Source Serif Pro'
+p, p *{
+    font-family: 'PT Serif'
 }
 
 body {
@@ -20,6 +21,31 @@ body {
     background: whitesmoke;
 }
 
+#nav{
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: height 2.5s ease;
+    background: darkslategray;
+    position: fixed;
+}
+
+.nav-link{
+    font-size: 30px;
+    color: whitesmoke;
+}
+
+#sliiider-toggle{
+    border: none;
+    margin: 10px;
+}
+
+#sliiider-exit{
+    margin: 40px;
+    font-size: 25px;
+}
 
 #page-wrap{
     background: whitesmoke;
@@ -30,28 +56,53 @@ body {
     align-items: center;
 }
 
+#water-body-selector{
+    margin: 30px 0 30px 0;
+}
+
 [type=radio]{
     display: none;
 }
 
 label{
     background-color: white;
-    border-radius: 20% / 5%;
+    border-radius: 5% / 25%;
     transition: background-color .35s ease;
+    margin: 10px;
+    font-size: 3vw;
+    padding: 5px;
 }
 
 [type=radio]:checked + label{
     background-color: lightblue;
 }
 
-@media screen and (min-width:768px){
+@media screen and (min-width:480px){
     h1{
-        font-size: 5vw;
+        font-size: 8vw;
+    }
+
+@media screen and (min-width:768px){
+    label{
+        font-size: 2.5vw;
+    }
+    h1{
+        font-size: 6vw;
+    }
+    #nav{
+        min-width: 30vw;
+        width: unset;
+    }
+    #sliiider-toggle{
+        font-size: 22px;
     }
 }
 
 @media screen and (min-width:1040px){
+    label{
+        font-size: 2vw;
+    }
     h1{
-        font-size: 4vw;
+        font-size: 5vw;
     }
 }
