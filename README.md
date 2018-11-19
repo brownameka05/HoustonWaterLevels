@@ -1,5 +1,7 @@
 # HoustonWaterLevels
 ## Flood Gauge Reports for Houston area
+## Developers
+Scott Morse, Ameka Brown, Jakiri Gamboa, Emre Akurek
 
 ## Live link: http://houston-water-levels.herokuapp.com
 
