@@ -1,9 +1,13 @@
 # HoustonWaterLevels
 ## Flood Gauge Reports for Houston area
-## Developers
-Scott Morse, Ameka Brown, Jakiri Gamboa, Emre Akurek
+## This site was built by
+[Scott Morse](https://github.com/ScottMorse), [Ameka Brown](https://github.com/brownameka05), [Jakiri Gamboa](https://github.com/jg00), [Emre Akurek](https://github.com/emreyeprem)
 
-## Live link: http://houston-water-levels.herokuapp.com
+## Live link:
+http://houston-water-levels.herokuapp.com
+
+## Introduction video of the project:
+https://youtu.be/avdwV3gGJfI
 
 This website is a Node.js project using Express.js and PostgreSQL to show recent data about the flood gauge levels for 
 Lake Houston and Buffalo Bayou, bodies of water that created some of the largest flooding problems during Hurriane Harvey.
